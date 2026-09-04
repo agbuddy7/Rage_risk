@@ -2,6 +2,7 @@ services:
   - type: web
     name: ai-risk-manager
     env: node
+    plan: free
     buildCommand: npm install && (pip install pandas lightgbm scikit-learn || pip3 install pandas lightgbm scikit-learn || true)
     startCommand: npm start
     envVars:
