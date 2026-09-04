@@ -43,6 +43,13 @@ import { ScoreBoardComponent } from './score-board/score-board.component'
 import { ChatbotComponent } from './chatbot/chatbot.component'
 import { ChatWelcomePageComponent } from './chatbot/chat-welcome-page/chat-welcome-page.component'
 import { ChatConversationComponent } from './chatbot/chat-conversation/chat-conversation.component'
+import { AgenticBankingComponent } from './agentic-banking/agentic-banking.component'
+import { AttackHubComponent } from './attack-hub/attack-hub.component'
+import { IndirectInjectionComponent } from './attack-sim/indirect-injection/indirect-injection.component'
+import { TrustPoisoningComponent } from './attack-sim/trust-poisoning/trust-poisoning.component'
+import { RefundReroutingComponent } from './attack-sim/refund-rerouting/refund-rerouting.component'
+import { FastFollowComponent } from './attack-sim/fast-follow/fast-follow.component'
+import { RiskManagerComponent } from './risk-manager/risk-manager.component'
 
 const loadFaucetModule = async () => {
   const module = await import('./faucet/faucet.module')
@@ -75,6 +82,34 @@ const loadAboutComponent = async () => {
 
 // vuln-code-snippet start adminSectionChallenge scoreBoardChallenge web3SandboxChallenge
 const routes: Routes = [
+  {
+    path: 'risk-manager',
+    component: RiskManagerComponent
+  },
+  {
+    path: 'agentic-banking',
+    component: AgenticBankingComponent
+  },
+  {
+    path: 'attack-hub',
+    component: AttackHubComponent
+  },
+  {
+    path: 'attack-sim/indirect-injection',
+    component: IndirectInjectionComponent
+  },
+  {
+    path: 'attack-sim/trust-poisoning',
+    component: TrustPoisoningComponent
+  },
+  {
+    path: 'attack-sim/refund-rerouting',
+    component: RefundReroutingComponent
+  },
+  {
+    path: 'attack-sim/fast-follow',
+    component: FastFollowComponent
+  },
   { // vuln-code-snippet neutral-line adminSectionChallenge
     path: 'administration', // vuln-code-snippet vuln-line adminSectionChallenge
     component: AdministrationComponent, // vuln-code-snippet neutral-line adminSectionChallenge

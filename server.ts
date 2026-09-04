@@ -79,6 +79,9 @@ import { applyCoupon } from './routes/coupon'
 import dataErasure from './routes/dataErasure'
 import { dataExport } from './routes/dataExport'
 import { chat } from './routes/chat'
+import { agenticBanking, agenticBankingProfile } from './routes/agenticBanking'
+import { attackSim } from './routes/attackSim'
+import { getRiskProfile, evaluateRisk, getRiskDossiers } from './routes/riskManager'
 import { retrieveBasket } from './routes/basket'
 import { searchProducts } from './routes/search'
 import { trackOrder } from './routes/trackOrder'
@@ -655,6 +658,12 @@ function configureApp (app: ReturnType<typeof express>, seq: typeof sequelize) {
 
   /* Chat API endpoint */
   app.post('/rest/chat', utils.asyncHandler(chat()))
+  app.post('/rest/agentic-banking', utils.asyncHandler(agenticBanking()))
+  app.get('/rest/agentic-banking/profile', utils.asyncHandler(agenticBankingProfile()))
+  app.post('/rest/attack-sim', utils.asyncHandler(attackSim()))
+  app.get('/rest/risk-manager/profile', utils.asyncHandler(getRiskProfile()))
+  app.post('/rest/risk-manager/evaluate', utils.asyncHandler(evaluateRisk()))
+  app.get('/rest/risk-manager/dossiers', utils.asyncHandler(getRiskDossiers()))
 
   /* Web3 API endpoints */
   app.post('/rest/web3/submitKey', utils.asyncHandler(checkKeys()))

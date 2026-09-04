@@ -1,0 +1,87 @@
+<main class="sim-shell">
+  <nav class="breadcrumb">
+    <a routerLink="/attack-hub">← Attack Hub</a>
+    <span>/ {{ scenario.attackId }}</span>
+  </nav>
+
+  <header class="sim-hero">
+    <div>
+      <p class="eyebrow">{{ scenario.attackId }} · {{ scenario.subtitle }}</p>
+      <h1>{{ scenario.title }}</h1>
+      <p class="lede">{{ scenario.description }}</p>
+    </div>
+    <div class="defense-badge">
+      <span class="dot"></span> LLM + Rebuff + ML Defense Active
+    </div>
+  </header>
+
+  <div class="workspace">
+    <!-- Left: Conversation -->
+    <div class="conversation-panel">
+      <div class="panel-heading">
+        <div><span class="kicker">LIVE SIMULATION</span><h2>Agent Conversation</h2></div>
+        <button class="reset-btn" (click)="reset()">Reset</button>
+      </div>
+
+      <div class="messages" aria-live="polite">
+        @for (msg of messages; track $index) {
+          <article class="message" [class.user-msg]="msg.role === 'user'" [class.attack-turn]="msg.isAttackTurn">
+            <span class="msg-role">
+              {{ msg.role === 'user' ? 'YOU' : 'AGENT' }}
+              @if (msg.isAttackTurn) { <span class="attack-label">ATTACK PAYLOAD</span> }
+            </span>
+            <p>{{ msg.content }}</p>
+            @if (msg.role === 'assistant' && msg.detectorScore !== undefined) {
+              <div class="telemetry" [class.blocked]="msg.finalVerdict === 'blocked'">
+                <span class="tel-badge">ML DEFENSE</span>
+                <span>Risk: <strong [style.color]="scoreColor(msg.detectorScore)">{{ msg.detectorScore | number:'1.3-3' }}</strong></span>
+                <span>Band: <strong>{{ msg.detectorBand | uppercase }}</strong></span>
+                <span>Verdict: <strong>{{ msg.finalVerdict | uppercase }}</strong></span>
+              </div>
+            }
+            @if (msg.role === 'assistant' && msg.rebuff) {
+              <div class="rebuff-row">
+                <span class="rebuff-label">REBUFF SIGNALS</span>
+                <span>Heuristic: {{ msg.rebuff.heuristic | number:'1.2-2' }}</span>
+                <span>Vector: {{ msg.rebuff.vector | number:'1.2-2' }}</span>
+                @if (msg.rebuff.languageModel !== undefined) {
+                  <span>LLM: {{ msg.rebuff.languageModel | number:'1.2-2' }}</span>
+                }
+              </div>
+            }
+          </article>
+        }
+        @if (busy) { <div class="typing">Agent processing<span>...</span></div> }
+      </div>
+
+      @if (error) { <p class="error" role="alert">{{ error }}</p> }
+
+      <form class="composer" (ngSubmit)="send()">
+        <textarea name="prompt" [(ngModel)]="prompt" [placeholder]="scenario.inputPlaceholder" rows="2"></textarea>
+        <button type="submit" [disabled]="busy || !prompt.trim()">{{ busy ? 'Working' : 'Send' }} →</button>
+      </form>
+    </div>
+
+    <!-- Right: Info panel -->
+    <aside class="info-panel">
+      <div class="info-block">
+        <span class="kicker">HOW THIS ATTACK WORKS</span>
+        <p>{{ scenario.howItWorks }}</p>
+      </div>
+      <div class="info-block">
+        <span class="kicker">INJECTION HINT</span>
+        <p class="mono">{{ scenario.injectionHint }}</p>
+      </div>
+      <div class="demo-scenarios">
+        <span class="kicker">DEMO SCENARIOS</span>
+        @for (demo of scenario.demoPrompts; track demo.label) {
+          <button class="probe" [class.attack-probe]="demo.isAttack" type="button"
+            (click)="usePromptAndSend(demo.prompt, demo.isAttack)">
+            <strong>{{ demo.label }}</strong>
+            <small>{{ demo.isAttack ? '⚠ Attack payload' : '✓ Legitimate' }}</small>
+          </button>
+        }
+      </div>
+    </aside>
+  </div>
+</main>

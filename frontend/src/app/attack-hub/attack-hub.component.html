@@ -1,0 +1,38 @@
+<main class="hub-shell">
+  <header class="hub-hero">
+    <div>
+      <p class="eyebrow">MASTERCARD AI DEFENSE LAB · 2026</p>
+      <h1>Attack Scenario Hub</h1>
+      <p class="lede">15 GenAI-powered payment fraud attacks identified, simulated, and defended. Select a scenario to run a live LLM simulation.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>15</strong><span>Attacks Identified</span></div>
+      <div class="stat"><strong>11</strong><span>Simulated</span></div>
+      <div class="stat"><strong>3</strong><span>Defense Layers</span></div>
+    </div>
+  </header>
+
+  <div class="grid">
+    @for (attack of attacks; track attack.id) {
+      <article class="card" [class.card-inactive]="!attack.implemented">
+        <div class="card-top">
+          <span class="attack-id">{{ attack.id }}</span>
+          <span class="sev-badge" [ngClass]="severityClass(attack.severity)">{{ attack.severity }}</span>
+        </div>
+        <h2>{{ attack.name }}</h2>
+        <p class="card-desc">{{ attack.description }}</p>
+        <div class="card-meta">
+          <span class="meta-tag">{{ attack.category }}</span>
+          <span class="meta-tag channel">{{ attack.channel }}</span>
+        </div>
+        <div class="card-footer">
+          @if (attack.implemented && attack.route) {
+            <a [routerLink]="attack.route" class="sim-btn">Run Simulation →</a>
+          } @else {
+            <span class="sim-btn disabled">Research Only</span>
+          }
+        </div>
+      </article>
+    }
+  </div>
+</main>

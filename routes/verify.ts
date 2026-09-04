@@ -113,7 +113,7 @@ export const serverSideChallenges = () => (req: Request, res: Response, next: Ne
   next()
 }
 
-function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, email: string | RegExp) {
+function jwtChallenge(challenge: Challenge, req: Request, algorithm: string, email: string | RegExp) {
   const token = utils.jwtFrom(req)
   if (token) {
     const decoded = jws.decode(token) ? jwt.decode(token) : null
@@ -132,16 +132,16 @@ function jwtChallenge (challenge: Challenge, req: Request, algorithm: string, em
   }
 }
 
-function hasAlgorithm (token: string, algorithm: string) {
+function hasAlgorithm(token: string, algorithm: string) {
   const header = JSON.parse(Buffer.from(token.split('.')[0], 'base64').toString())
   return token && header && header.alg === algorithm
 }
 
-function hasEmail (token: { data: { email: string } }, email: string | RegExp) {
+function hasEmail(token: { data: { email: string } }, email: string | RegExp) {
   return token?.data?.email?.match(email)
 }
 
-async function checkPatternInFeedbackAndComplaints (
+async function checkPatternInFeedbackAndComplaints(
   challenge: Challenge,
   fieldCriteria: any
 ): Promise<void> {
@@ -213,7 +213,7 @@ export const databaseRelatedChallenges = () => (req: Request, res: Response, nex
   next()
 }
 
-function changeProductChallenge (osaft: Product) {
+function changeProductChallenge(osaft: Product) {
   let urlForProductTamperingChallenge: string | null = null
   void osaft.reload().then(() => {
     for (const product of config.get<ProductConfig[]>('products')) {
@@ -232,7 +232,7 @@ function changeProductChallenge (osaft: Product) {
   })
 }
 
-function feedbackChallenge () {
+function feedbackChallenge() {
   FeedbackModel.findAndCountAll({ where: { rating: 5 } }).then(({ count }: { count: number }) => {
     if (count === 0) {
       challengeUtils.solve(challenges.feedbackChallenge)
@@ -242,14 +242,14 @@ function feedbackChallenge () {
   })
 }
 
-function knownVulnerableComponentChallenge () {
+function knownVulnerableComponentChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.knownVulnerableComponentChallenge,
     { [Op.or]: knownVulnerableComponents() }
   )
 }
 
-function knownVulnerableComponents () {
+function knownVulnerableComponents() {
   return [
     {
       [Op.and]: [
@@ -266,14 +266,14 @@ function knownVulnerableComponents () {
   ]
 }
 
-function weirdCryptoChallenge () {
+function weirdCryptoChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.weirdCryptoChallenge,
     { [Op.or]: weirdCryptos() }
   )
 }
 
-function weirdCryptos () {
+function weirdCryptos() {
   return [
     { [Op.like]: '%z85%' },
     { [Op.like]: '%base85%' },
@@ -283,63 +283,63 @@ function weirdCryptos () {
   ]
 }
 
-function typosquattingNpmChallenge () {
+function typosquattingNpmChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.typosquattingNpmChallenge,
     { [Op.like]: '%epilogue-js%' }
   )
 }
 
-function typosquattingAngularChallenge () {
+function typosquattingAngularChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.typosquattingAngularChallenge,
     { [Op.like]: '%ngy-cookie%' }
   )
 }
 
-function hiddenImageChallenge () {
+function hiddenImageChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.hiddenImageChallenge,
     { [Op.like]: '%pickle rick%' }
   )
 }
 
-function supplyChainAttackChallenge () {
+function supplyChainAttackChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.supplyChainAttackChallenge,
     { [Op.or]: eslintScopeVulnIds() }
   )
 }
 
-function eslintScopeVulnIds () {
+function eslintScopeVulnIds() {
   return [
     { [Op.like]: '%eslint-scope/issues/39%' },
     { [Op.like]: '%npm:eslint-scope:20180712%' }
   ]
 }
 
-function dlpPastebinDataLeakChallenge () {
+function dlpPastebinDataLeakChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.dlpPastebinDataLeakChallenge,
     { [Op.and]: dangerousIngredients() }
   )
 }
 
-function csafChallenge () {
+function csafChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.csafChallenge,
     { [Op.like]: '%' + config.get<string>('challenges.csafHashValue') + '%' }
   )
 }
 
-function leakedApiKeyChallenge () {
+function leakedApiKeyChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.leakedApiKeyChallenge,
     { [Op.like]: '%6PPi37DBxP4lDwlriuaxP15HaDJpsUXY5TspVmie%' }
   )
 }
 
-function vulnerableDockerImageChallenge () {
+function vulnerableDockerImageChallenge() {
   void checkPatternInFeedbackAndComplaints(
     challenges.vulnerableDockerImageChallenge,
     {
@@ -351,7 +351,7 @@ function vulnerableDockerImageChallenge () {
   )
 }
 
-function dangerousIngredients () {
+function dangerousIngredients() {
   return config.get<ProductConfig[]>('products')
     .flatMap((product) => product.keywordsForPastebinDataLeakChallenge)
     .filter(Boolean)
@@ -360,12 +360,12 @@ function dangerousIngredients () {
     })
 }
 
-export function checkSystemPromptSimilarity (submission: string, reference: string, threshold = 0.25): boolean {
+export function checkSystemPromptSimilarity(submission: string, reference: string, threshold = 0.25): boolean {
   const score = utils.diceCoefficient((submission ?? '').toLowerCase().trim(), reference.toLowerCase().trim(), 3)
   return score >= threshold
 }
 
-async function systemPromptExtractionChallenge (): Promise<void> {
+async function systemPromptExtractionChallenge(): Promise<void> {
   const reference = buildSystemPrompt().toLowerCase().trim()
   const complaints = await ComplaintModel.findAll().catch(() => [])
   for (const complaint of complaints) {

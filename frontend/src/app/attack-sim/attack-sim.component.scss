@@ -1,0 +1,53 @@
+:host { display: block; }
+.sim-shell { max-width: 1280px; margin: 0 auto; padding: 28px 32px 70px; font-family: 'Avenir Next', 'Trebuchet MS', sans-serif; color: #172322; }
+.breadcrumb { margin-bottom: 20px; font-size: 12px; color: #53736b; }
+.breadcrumb a { color: #175e58; text-decoration: none; font-weight: 700; }
+.breadcrumb a:hover { text-decoration: underline; }
+.eyebrow, .kicker { display: block; margin-bottom: 8px; color: #53736b; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; }
+.sim-hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-bottom: 28px; border-bottom: 1px solid #c9d8d2; margin-bottom: 26px; }
+h1 { margin: 0 0 8px; color: #103f3b; font-family: Georgia, serif; font-size: clamp(28px, 4vw, 52px); font-weight: 400; line-height: 1; }
+.lede { max-width: 520px; margin: 0; color: #536864; font-size: 14px; line-height: 1.55; }
+.defense-badge { padding: 10px 14px; border: 1px solid #b9d5c4; color: #256b4b; background: #edf8f0; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.dot { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #27804e; }
+.workspace { display: grid; grid-template-columns: minmax(0,1.6fr) 320px; gap: 22px; align-items: start; }
+.conversation-panel { display: flex; flex-direction: column; min-height: 580px; border: 1px solid #c9d8d2; background: #fbfcf9; }
+.panel-heading { display: flex; align-items: flex-start; justify-content: space-between; padding: 20px 22px; border-bottom: 1px solid #dce7e2; }
+.panel-heading h2 { margin: 0; color: #183d39; font-family: Georgia, serif; font-size: 24px; font-weight: 400; }
+.reset-btn { padding: 8px 16px; background: transparent; border: 1px solid #afc5bd; color: #53736b; font-size: 12px; font-weight: 700; cursor: pointer; }
+.reset-btn:hover { background: #eef4f1; }
+.messages { display: flex; flex: 1; flex-direction: column; gap: 16px; overflow: auto; padding: 20px; }
+.message { max-width: 80%; padding: 14px 16px; border-left: 3px solid #6baba0; background: #edf4f0; }
+.user-msg { align-self: flex-end; border-left: 0; border-right: 3px solid #d28a3c; background: #fff4e5; }
+.attack-turn { border-right-color: #a43f33; background: #fdf0ee; }
+.msg-role { display: block; margin-bottom: 6px; font-size: 9px; font-weight: 800; letter-spacing: 1px; color: #53736b; }
+.attack-label { margin-left: 8px; padding: 1px 5px; background: #a43f33; color: white; font-size: 8px; border-radius: 2px; }
+.message p { margin: 0; line-height: 1.55; white-space: pre-wrap; font-size: 13px; }
+.telemetry { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 12px; padding-top: 10px; border-top: 1px dashed #afc5bd; font-size: 11px; color: #53736b; }
+.telemetry.blocked { border-top-color: #e5aaa2; color: #853025; }
+.tel-badge { padding: 2px 6px; background: #234641; color: white; font-size: 9px; font-weight: 800; letter-spacing: .5px; }
+.telemetry.blocked .tel-badge { background: #a43f33; }
+.rebuff-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; font-size: 10px; color: #789089; }
+.rebuff-label { font-weight: 800; letter-spacing: .5px; color: #53736b; }
+.typing { color: #53736b; font-size: 13px; font-style: italic; }
+.typing span { animation: blink 1s infinite; }
+.error { margin: 0 20px 12px; color: #a43f33; font-size: 13px; }
+.composer { display: flex; gap: 10px; padding: 16px; border-top: 1px solid #dce7e2; }
+textarea { flex: 1; resize: vertical; min-height: 54px; padding: 12px; border: 1px solid #afc5bd; font: inherit; font-size: 13px; background: #fff; color: inherit; }
+textarea:focus { outline: 2px solid #d28a3c; outline-offset: 1px; }
+.composer button { align-self: stretch; padding: 0 20px; border: 0; background: #175e58; color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; }
+button:disabled { opacity: .55; cursor: wait; }
+.info-panel { display: flex; flex-direction: column; gap: 18px; }
+.info-block { padding: 18px 20px; border: 1px solid #c9d8d2; background: #f5f8f4; }
+.info-block p { margin: 6px 0 0; font-size: 13px; line-height: 1.55; color: #4a6460; }
+.mono { font-family: monospace; font-size: 12px !important; color: #8a3f1a !important; background: #fdf5ef; padding: 8px; }
+.demo-scenarios { border: 1px solid #c9d8d2; background: #fbfcf9; padding: 16px; display: flex; flex-direction: column; gap: 0; }
+.probe { width: 100%; border: 0; border-bottom: 1px solid #dce7e2; padding: 14px 16px; text-align: left; background: transparent; cursor: pointer; }
+.probe:last-child { border-bottom: 0; }
+.probe:hover { background: #eef6f2; }
+.probe.attack-probe { background: #fff8f6; }
+.probe.attack-probe:hover { background: #fef0ec; }
+.probe strong { display: block; margin-bottom: 4px; color: #183d39; font-size: 12px; }
+.probe small { display: block; color: #60736d; font-size: 10px; }
+.probe.attack-probe small { color: #a43f33; }
+@keyframes blink { 50% { opacity: .2; } }
+@media (max-width: 900px) { .workspace { grid-template-columns: 1fr; } .sim-hero { flex-direction: column; align-items: flex-start; } }

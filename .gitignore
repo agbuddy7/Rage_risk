@@ -21,6 +21,7 @@ build/
 cache/
 coverage/
 dist/
+!frontend/dist/
 logs/
 vagrant/.vagrant/
 *.orig
@@ -71,3 +72,4 @@ config/*.yml
 # Misc
 .playwright-mcp/
 cypress/screenshots/
+.env

@@ -1,0 +1,318 @@
+{
+  "benchmark_summary": {
+    "track": "AI Risk Manager",
+    "model": "LightGBM Cost-Sensitive Risk Classifier",
+    "held_out_test_size": 240,
+    "legitimate_samples": 80,
+    "fraud_samples": 160,
+    "roc_auc": 0.9994,
+    "f1": 0.9938,
+    "precision": 0.9938,
+    "recall": 0.9938,
+    "accuracy": 0.9917
+  },
+  "confusion_matrix": {
+    "true_negatives": 79,
+    "false_positives": 1,
+    "false_negatives": 1,
+    "true_positives": 159
+  },
+  "cost_analysis": {
+    "unit_cost_fp_inr": 350,
+    "unit_cost_fn_inr": 3450,
+    "total_potential_loss_inr": 552000,
+    "total_incurred_cost_inr": 3800,
+    "net_merchant_savings_inr": 548200,
+    "loss_reduction_pct": 99.31,
+    "optimal_operating_threshold": 0.05,
+    "threshold_sweep": [
+      {
+        "threshold": 0.05,
+        "precision": 0.9816,
+        "recall": 1.0,
+        "f1": 0.9907,
+        "tn": 77,
+        "fp": 3,
+        "fn": 0,
+        "tp": 160,
+        "financial_cost_inr": 1050,
+        "net_savings_inr": 550950
+      },
+      {
+        "threshold": 0.1,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.15,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.2,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.25,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.3,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.35,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.4,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.45,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.5,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.55,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.6,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.65,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.7,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.75,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.8,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.85,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.9,
+        "precision": 0.9938,
+        "recall": 0.9938,
+        "f1": 0.9938,
+        "tn": 79,
+        "fp": 1,
+        "fn": 1,
+        "tp": 159,
+        "financial_cost_inr": 3800,
+        "net_savings_inr": 548200
+      },
+      {
+        "threshold": 0.95,
+        "precision": 0.9937,
+        "recall": 0.9875,
+        "f1": 0.9906,
+        "tn": 79,
+        "fp": 1,
+        "fn": 2,
+        "tp": 158,
+        "financial_cost_inr": 7250,
+        "net_savings_inr": 544750
+      }
+    ]
+  },
+  "attack_type_breakdown": {
+    "fast_follow": {
+      "total_attempts": 19,
+      "detected": 19,
+      "recall": 1.0
+    },
+    "impersonation": {
+      "total_attempts": 23,
+      "detected": 23,
+      "recall": 1.0
+    },
+    "refund_rerouting": {
+      "total_attempts": 18,
+      "detected": 18,
+      "recall": 1.0
+    },
+    "merchant_injection": {
+      "total_attempts": 20,
+      "detected": 20,
+      "recall": 1.0
+    },
+    "role_override": {
+      "total_attempts": 17,
+      "detected": 17,
+      "recall": 1.0
+    },
+    "context_poisoning": {
+      "total_attempts": 11,
+      "detected": 11,
+      "recall": 1.0
+    },
+    "trust_poisoning": {
+      "total_attempts": 15,
+      "detected": 15,
+      "recall": 1.0
+    },
+    "param_tampering": {
+      "total_attempts": 13,
+      "detected": 13,
+      "recall": 1.0
+    },
+    "indirect_injection": {
+      "total_attempts": 14,
+      "detected": 14,
+      "recall": 1.0
+    },
+    "velocity_shaping": {
+      "total_attempts": 10,
+      "detected": 9,
+      "recall": 0.9
+    }
+  },
+  "feature_importances": {
+    "turn_count": 267.0,
+    "amount": 918.0,
+    "rebuff_heuristic_score": 452.0,
+    "rebuff_similarity_score": 672.0,
+    "rebuff_llm_score": 778.0
+  }
+}

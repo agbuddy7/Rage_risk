@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: ai-risk-manager
+    runtime: node
+    plan: free
+    buildCommand: "npm install --omit=dev && pip3 install -r defend/requirements.txt && npm run build:server"
+    startCommand: "node build/app"
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LLM_API_KEY
+        sync: false
+      - key: LEDGER_DEFENSE_MODE
+        value: enforce
+      - key: LEDGER_MODEL_THRESHOLD_HIGH
+        value: "0.70"
+      - key: LEDGER_MODEL_THRESHOLD_MED
+        value: "0.35"

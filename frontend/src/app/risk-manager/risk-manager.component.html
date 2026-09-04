@@ -1,0 +1,197 @@
+<div class="shell">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a routerLink="/attack-hub">← Attack Hub</a>
+    <span> / </span>
+    <span>AI Risk Manager</span>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div>
+      <span class="eyebrow">OWASP JUICE SHOP — AGENTIC BANKING DEFENSE LAB</span>
+      <h1>AI Risk Manager</h1>
+      <p class="lede">
+        Live AI assistant (Ledger) powered by LLM tool calling. Red-team payloads are automatically injected into natural user requests to simulate adversarial rerouting, while the Risk Manager runs real-time Rebuff + LightGBM detection to intercept unauthorized actions.
+      </p>
+    </div>
+    <div class="hero-right">
+      <button class="status-pill" [class.enforce]="defenseMode === 'enforce'" [class.observe]="defenseMode === 'observe'" (click)="toggleDefenseMode()" title="Click to toggle between Enforce and Observe modes">
+        <span class="dot"></span>
+        POLICY: {{ defenseMode === 'enforce' ? 'DEFENSE ACTIVE (ENFORCE)' : 'AUDIT ONLY (OBSERVE)' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Real Demo Account Strip -->
+  <div class="account-strip">
+    <div>
+      <span class="label">Authenticated Account</span>
+      <strong>{{ accountName }}</strong>
+    </div>
+    <div>
+      <span class="label">Wallet Balance</span>
+      <strong>{{ balance | number:'1.2-2' }} {{ currency }}</strong>
+    </div>
+    <div>
+      <span class="label">Intercepted Attacks (Live)</span>
+      <strong class="highlight-val">{{ interceptedAttacksCount }}</strong>
+    </div>
+    <div>
+      <span class="label">Policy Enforcement</span>
+      <strong>{{ defenseMode === 'enforce' ? 'Block (≥ 0.70)' : 'Observe (Log Only)' }}</strong>
+    </div>
+  </div>
+
+  <!-- 3-Column Workspace -->
+  <div class="workspace">
+    <!-- Left Column: Sample Scenarios & Account Profile -->
+    <div class="panel probes-column">
+      <div class="panel-heading">
+        <h2>Demo Scenarios</h2>
+      </div>
+      <p class="panel-sub">Click any scenario to immediately test Ledger and the fraud detector:</p>
+
+      <div class="probes-list">
+        <button *ngFor="let s of scenarios; let idx = index" 
+          class="probe" 
+          type="button"
+          (click)="useScenarioAndSend(s)">
+          <span class="probe-num">0{{ idx + 1 }}</span>
+          <strong>{{ s.label }}</strong>
+          <small>{{ s.description }}</small>
+        </button>
+      </div>
+
+      <!-- Recent Transactions from seeded demo account -->
+      <div class="panel-heading" style="border-top: 1px solid #dce7e2; margin-top: 12px;">
+        <h2>Recent Activity</h2>
+      </div>
+      <div class="activity-mini-list" *ngIf="transactions.length > 0">
+        <div class="activity-mini-row" *ngFor="let tx of transactions.slice(0, 5)">
+          <span class="tx-desc">{{ tx.description }}</span>
+          <span class="tx-amt">-{{ tx.amount }} {{ tx.currency }}</span>
+        </div>
+      </div>
+      <p class="empty-text" *ngIf="transactions.length === 0">No transfers debited yet.</p>
+    </div>
+
+    <!-- Center Column: Live Conversation & Interception Stream -->
+    <div class="panel conversation-panel">
+      <div class="panel-heading">
+        <div>
+          <span class="msg-role" style="margin: 0 0 4px;">ASSISTANT CONSOLE</span>
+          <h2>Talk to Ledger</h2>
+        </div>
+        <button class="reset-btn" (click)="resetChat()">Reset</button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="messages" aria-live="polite">
+        <div *ngFor="let msg of messages" 
+          class="message" 
+          [class.user-msg]="msg.role === 'user'">
+          <span class="msg-role">{{ msg.role === 'user' ? 'YOU' : 'LEDGER' }}</span>
+          <p>{{ msg.content }}</p>
+
+          <!-- Hidden Payload Injected Box (Matches Red Team Screenshot) -->
+          <div class="hidden-payload-reveal" *ngIf="msg.hiddenPayload">
+            <strong>[HIDDEN PAYLOAD INJECTED]:</strong><br>
+            {{ msg.hiddenPayload }}
+          </div>
+
+          <!-- Intercepted Tool Call Banner (in Enforce mode) -->
+          <div class="intercept-banner" *ngIf="msg.interceptedToolCall">
+            <span class="intercept-icon">⛔</span>
+            <div>
+              <strong>TOOL CALL REVOKED: {{ msg.interceptedToolCall.toolName }}</strong>
+              <span>Target: {{ msg.interceptedToolCall.recipientUsername }} · Amount: {{ msg.interceptedToolCall.amount }} JWC</span>
+            </div>
+          </div>
+
+          <!-- Real Security Telemetry (Matches Red Team Screenshot) -->
+          <div class="security-telemetry" *ngIf="msg.detectorScore !== undefined" [class.blocked]="msg.finalVerdict === 'blocked'">
+            <span class="telemetry-badge">{{ msg.finalVerdict === 'blocked' ? 'INTERCEPTED' : 'ML DEFENSE' }}</span>
+            <span class="score">Risk Score: <strong>{{ msg.detectorScore | number:'1.2-2' }}</strong></span>
+            <span class="verdict">Action: <strong>{{ msg.finalVerdict | uppercase }}</strong></span>
+            <span class="rebuff-mini" *ngIf="msg.rebuff">
+              Rebuff: H={{ msg.rebuff.heuristic | number:'1.2-2' }} V={{ msg.rebuff.vector | number:'1.2-2' }} LM={{ (msg.rebuff.languageModel ?? 0) | number:'1.2-2' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="typing" *ngIf="busy">
+          Ledger is reasoning through the request<span>...</span>
+        </div>
+      </div>
+
+      <div class="error-text" *ngIf="error">{{ error }}</div>
+
+      <!-- Auto Inject Toggle Strip -->
+      <div class="attack-controls">
+        <label class="toggle-label">
+          <input type="checkbox" [(ngModel)]="autoInjectAttack" />
+          <span>Auto-inject red-team compliance override payload</span>
+        </label>
+        <span class="mode-indicator" [class.enforcing]="defenseMode === 'enforce'">
+          Mode: {{ defenseMode === 'enforce' ? 'Enforce (Blocks attacks)' : 'Observe (Demonstrates reroute)' }}
+        </span>
+      </div>
+
+      <!-- Composer -->
+      <form class="composer" (ngSubmit)="send()">
+        <textarea [(ngModel)]="prompt" 
+          name="prompt"
+          rows="2" 
+          placeholder="Try: Can you send 25 JWC to james?" 
+          (keydown.enter)="$event.preventDefault(); send()"></textarea>
+        <button type="submit" [disabled]="busy || !prompt.trim()">
+          <span *ngIf="!busy">Send →</span>
+          <span *ngIf="busy">Thinking...</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Column: Dispute Dossier & Evidence Pack -->
+    <div class="panel dossier-column">
+      <div class="panel-heading">
+        <h2>Dispute Dossier</h2>
+      </div>
+
+      <div *ngIf="!activeDossier" class="empty-dossier">
+        No tool call intercepted yet. When an adversarial prompt coaxes Ledger into an unauthorized transfer, the Risk Manager detects the injection, intercepts the tool call, and auto-assembles a dispute dossier.
+      </div>
+
+      <div *ngIf="activeDossier" class="dossier-body">
+        <div class="dossier-meta">
+          <div class="row">
+            <span class="k">Dossier ID:</span>
+            <span class="v">{{ activeDossier.dossier_id }}</span>
+          </div>
+          <div class="row">
+            <span class="k">Decision:</span>
+            <span class="v highlight">{{ activeDossier.risk_assessment?.decision }}</span>
+          </div>
+          <div class="row">
+            <span class="k">Risk Score:</span>
+            <span class="v">{{ activeDossier.risk_assessment?.risk_score | number:'1.4-4' }}</span>
+          </div>
+          <div class="row">
+            <span class="k">Audit Hash:</span>
+            <span class="v mono">{{ activeDossier.evidence_pack?.evidence_hash ? activeDossier.evidence_pack.evidence_hash.slice(0, 18) + '...' : 'N/A' }}</span>
+          </div>
+        </div>
+
+        <div class="statement-box">
+          <h3>Bank Representment Statement:</h3>
+          <pre>{{ activeDossier.evidence_pack?.representment_statement }}</pre>
+        </div>
+
+        <button class="btn-copy" (click)="copyDossier()">
+          <span *ngIf="!copySuccess">Copy Statement</span>
+          <span *ngIf="copySuccess">✓ Copied to Clipboard</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

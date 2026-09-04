@@ -62,6 +62,7 @@
     "serve": "concurrently --kill-others \"tsx app.ts\" \"cd frontend && npm run start\"",
     "serve:dev": "concurrently --kill-others \"tsx watch app.ts\" \"cd frontend && npm run start\"",
     "start": "node build/app",
+    "redteam": "npx promptfoo eval -c redteam/promptfooconfig.yaml",
     "test": "npm run test:frontend && npm run test:server && npm run test:api",
     "test:coverage": "npm run test:frontend:coverage && npm run test:server:coverage && npm run test:api:coverage",
     "test:frontend": "cd frontend && npm run test",
