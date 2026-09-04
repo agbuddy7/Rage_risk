@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: ai-risk-manager
+    env: node
+    buildCommand: npm install && (pip install pandas lightgbm scikit-learn || pip3 install pandas lightgbm scikit-learn || true)
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=1024"
+      - key: NODE_ENV
+        value: production
+      - key: LLM_API_KEY
+        sync: false
+      - key: LEDGER_DEFENSE_MODE
+        value: enforce
+      - key: LEDGER_MODEL_THRESHOLD_HIGH
+        value: "0.70"
