@@ -3,7 +3,7 @@ services:
     name: ai-risk-manager
     runtime: node
     plan: free
-    buildCommand: "npm install && pip3 install -r defend/requirements.txt && npm run build:server"
+    buildCommand: "npm install --include=dev && pip3 install -r defend/requirements.txt && npm run build:server"
     startCommand: "node build/app"
     envVars:
       - key: NODE_ENV

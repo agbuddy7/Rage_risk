@@ -17,6 +17,7 @@
     },
     "sourceMap": true,
     "strict": true,
+    "noImplicitAny": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -45,6 +46,7 @@
     "data/static/codefixes/**",
     "test/**",
     "cypress/**",
+    "cypress.config.ts",
     "**/*.d.ts"
   ]
 }
