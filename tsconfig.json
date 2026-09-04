@@ -26,13 +26,11 @@
     ]
   },
   "include": [
-    "cypress/**/*.ts",
     "data/**/*.ts",
     "lib/**/*.ts",
     "lib/**/*.js",
     "models/**/*.ts",
     "routes/**/*.ts",
-    "test/**/*.ts",
     "views/**/*.ts",
     "views/**/*.js",
     "rsn/**/*.ts",
@@ -45,7 +43,8 @@
     "build",
     "vagrant",
     "data/static/codefixes/**",
-    "test/cypress/**",
+    "test/**",
+    "cypress/**",
     "**/*.d.ts"
   ]
 }
