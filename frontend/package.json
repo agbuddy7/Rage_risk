@@ -60,9 +60,9 @@
     "sass": "^1.86.3",
     "snarkdown": "^1.2.2",
     "socket.io-client": "^3.1.0",
-    "solidity-browser-compiler": "^1.1.0",
     "tslib": "^2.5.0",
     "typescript": "~6.0.3",
+    "vitest": "^4.1.1",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -80,8 +80,7 @@
     "stylelint": "^16.10.0",
     "stylelint-config-sass-guidelines": "^12.1.0",
     "stylelint-scss": "^6.0.0",
-    "typescript-eslint": "^8.42.0",
-    "vitest": "^4.1.1"
+    "typescript-eslint": "^8.42.0"
   },
   "overrides": {
     "lru-cache@^11": "~11.2.7",
