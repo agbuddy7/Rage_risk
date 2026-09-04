@@ -1,4 +1,4 @@
-# SentinelRisk: AI Risk Manager & Agentic Commerce Loss Prevention
+# RageRisk: AI Risk Manager & Agentic Commerce Loss Prevention
 
 > **Hackathon Track**: AI Risk Manager — *Stop the merchant losing money to fraud, returns and chargebacks.*  
 > **Class of Loss**: Unauthorized Agentic Funds Rerouting, Conversational Prompt-Injection Fraud & Refund Hijacking in Agent-to-Agent Commerce (NPCI UAP, ACP, AP2, x402).  
