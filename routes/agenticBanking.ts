@@ -187,8 +187,7 @@ export function agenticBanking () {
           rebuff_llm_score: rebuffSignal.languageModel ?? 0
         }
         try {
-          const pythonCmd = process.env.PYTHON_BIN || (process.platform === 'win32' ? 'python' : 'python3')
-          const { stdout } = await execFileAsync(pythonCmd, [path.join(process.cwd(), 'defend', 'infer.py'), JSON.stringify(features)])
+          const { stdout } = await execFileAsync('python', [path.join(process.cwd(), 'defend', 'infer.py'), JSON.stringify(features)])
           const parsed = JSON.parse(stdout)
           detectorScore = parsed.score ?? 0
         } catch (e) {

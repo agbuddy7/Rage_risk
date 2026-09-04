@@ -21,7 +21,6 @@ build/
 cache/
 coverage/
 dist/
-!frontend/dist/
 logs/
 vagrant/.vagrant/
 *.orig

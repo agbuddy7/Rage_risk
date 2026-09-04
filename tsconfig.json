@@ -17,7 +17,6 @@
     },
     "sourceMap": true,
     "strict": true,
-    "noImplicitAny": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -27,11 +26,13 @@
     ]
   },
   "include": [
+    "cypress/**/*.ts",
     "data/**/*.ts",
     "lib/**/*.ts",
     "lib/**/*.js",
     "models/**/*.ts",
     "routes/**/*.ts",
+    "test/**/*.ts",
     "views/**/*.ts",
     "views/**/*.js",
     "rsn/**/*.ts",
@@ -44,9 +45,7 @@
     "build",
     "vagrant",
     "data/static/codefixes/**",
-    "test/**",
-    "cypress/**",
-    "cypress.config.ts",
+    "test/cypress/**",
     "**/*.d.ts"
   ]
 }
