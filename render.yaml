@@ -16,3 +16,5 @@ services:
         value: "0.70"
       - key: LEDGER_MODEL_THRESHOLD_MED
         value: "0.35"
+      - key: NODE_CONFIG
+        value: '{"application":{"chatBot":{"llmApiUrl":"https://api.groq.com/openai/v1","model":"openai/gpt-oss-120b"}}}'
